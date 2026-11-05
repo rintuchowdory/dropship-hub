@@ -32,7 +32,7 @@ function IntegrationCard({
         >
           {integration.initials}
         </div>
-        {connected && <Badge tone="good">live</Badge>}
+        {connected && <Badge tone="info">selected</Badge>}
       </div>
       <p className="mt-3 text-sm font-semibold">{integration.name}</p>
       <p className="mt-1 flex-1 text-xs leading-relaxed text-muted">
@@ -77,7 +77,7 @@ export function ConnectionsPage() {
     <div className="mx-auto max-w-7xl p-8">
       <PageHeader
         title="Connections"
-        sub={`${connected.length} of ${INTEGRATIONS.length} services connected across ${CATEGORY_ORDER.length} categories`}
+        sub={`${connected.length} of ${INTEGRATIONS.length} services selected across ${CATEGORY_ORDER.length} categories`}
         action={
           <Segmented
             value={view}
@@ -87,6 +87,16 @@ export function ConnectionsPage() {
               { value: "connected", label: "Connected" },
             ]}
           />
+
+      <div className="mt-4 flex items-start gap-3 rounded-lg border border-amber-500/30 bg-amber-500/5 p-4">
+        <span className="mt-0.5 text-sm text-amber-400">i</span>
+        <p className="text-xs leading-relaxed text-muted">
+          <span className="font-semibold text-foreground">Integration catalogue, not live connections.</span>{" "}
+          Selecting a service stores your choice in the database so the setup is documented.
+          No provider OAuth is wired up yet, so no orders, payouts or tickets are imported from
+          these services. Live sync needs app credentials and webhooks per provider.
+        </p>
+      </div>
         }
       />
 
@@ -97,7 +107,7 @@ export function ConnectionsPage() {
             i.category === catId &&
             (view === "all" || connected.includes(i.id))
         );
-        const live = cards.filter((c) => connected.includes(c.id)).length;
+        const selected = cards.filter((c) => connected.includes(c.id)).length;
         return (
           <section key={catId} className="mt-8">
             <div className="flex flex-wrap items-baseline justify-between gap-2">
@@ -106,7 +116,7 @@ export function ConnectionsPage() {
                 <p className="mt-1 text-xs text-muted">{meta.blurb}</p>
               </div>
               <span className="text-[11px] text-muted">
-                {live} / {cards.length} connected
+                {selected} / {cards.length} selected
               </span>
             </div>
             <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
