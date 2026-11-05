@@ -87,18 +87,18 @@ export function ConnectionsPage() {
               { value: "connected", label: "Connected" },
             ]}
           />
+        }
+      />
 
       <div className="mt-4 flex items-start gap-3 rounded-lg border border-amber-500/30 bg-amber-500/5 p-4">
         <span className="mt-0.5 text-sm text-amber-400">i</span>
         <p className="text-xs leading-relaxed text-muted">
           <span className="font-semibold text-foreground">Integration catalogue, not live connections.</span>{" "}
-          Selecting a service stores your choice in the database so the setup is documented.
-          No provider OAuth is wired up yet, so no orders, payouts or tickets are imported from
-          these services. Live sync needs app credentials and webhooks per provider.
+          Selecting a service stores your choice in the database so the setup is documented. No
+          provider OAuth is wired up yet, so no orders, payouts or tickets are imported from these
+          services. Live sync needs app credentials and webhooks per provider.
         </p>
       </div>
-        }
-      />
 
       {visibleCategories.map((catId) => {
         const meta = CATEGORIES[catId];
