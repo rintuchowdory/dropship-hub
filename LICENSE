@@ -1,0 +1,57 @@
+Opsdeck Commercial License
+Copyright (c) 2026 Rintu Chowdory. All rights reserved.
+
+This license applies to the source code of the Opsdeck dashboard in this
+repository ("the Software"). It is not an open source license.
+
+1. What you may do
+
+   Solo license (one purchase, one project)
+   - Use the Software for one product or one client project.
+   - Modify the code, the design and the content without limit.
+   - Deploy the result to your own Cloudflare account (Pages, Workers, D1).
+   - Keep the modifications private.
+
+   Studio license (one purchase, unlimited projects)
+   - Everything in the Solo license.
+   - Use the Software for any number of your own or client projects.
+   - Rebrand it (name, colours, logo) and hand the finished dashboard to a
+     client as part of your service.
+
+2. What you may not do
+
+   - Resell, sublicense or redistribute the Software as a template, starter
+     kit, boilerplate or source code product, whether modified or not.
+   - Publish the source code publicly (for example on GitHub) in a form that
+     allows others to download and reuse it.
+   - Include the Software in a competing template or theme marketplace listing.
+   - Use the Opsdeck name or logo for your own product without written
+     permission.
+
+3. Deliverables and payments
+
+   - One-time payment, no subscription. Prices and what is included are listed
+     on the sales page.
+   - Included: full source code, database schema, API, documentation, and
+     twelve months of updates for the purchased version line.
+
+4. No warranty
+
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+   AUTHOR BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN
+   ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+   WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+5. Third party services
+
+   Running the Software requires a Cloudflare account. Marketplace, payment,
+   shipping and marketing integrations are not included and require your own
+   provider accounts, credentials and API approvals. Costs charged by those
+   providers are yours.
+
+6. Governing law
+
+   German law applies. Place of jurisdiction is Aachen, Germany, as far as
+   legally permissible.

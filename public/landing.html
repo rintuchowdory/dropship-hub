@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Opsdeck: Dropshipping-Dashboard für Bestellungen, Margen und Lieferanten</title>
+    <meta
+      name="description"
+      content="Opsdeck ist ein selbst gehostetes Betriebs-Dashboard für Dropshipping: Bestellungen, Lieferanten, Margen, Tracking und Automatisierung an einer Stelle. Quellcode kaufen, auf Cloudflare deployen, in zehn Minuten live."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/site.css" />
+    <style>
+      .hero { padding: 40px 0 8px; }
+      .eyebrow {
+        display: inline-block; padding: 4px 10px; border-radius: 999px;
+        border: 1px solid var(--border); color: var(--muted);
+        font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase;
+      }
+      .lead { font-size: 17px; color: #c7cddb; max-width: 62ch; }
+      .row { display: flex; flex-wrap: wrap; gap: 12px; margin: 22px 0 8px; }
+      .preview {
+        margin: 34px 0 8px; border: 1px solid var(--border); border-radius: 16px;
+        background: var(--card); overflow: hidden;
+      }
+      .bar { display: flex; gap: 6px; padding: 10px 14px; border-bottom: 1px solid var(--border); }
+      .dot { width: 9px; height: 9px; border-radius: 50%; background: #2c3341; }
+      .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 16px; }
+      .tile { border: 1px solid var(--border); border-radius: 10px; padding: 12px; background: #0d1016; }
+      .tile .k { font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+      .tile .v { font-size: 20px; font-weight: 800; letter-spacing: -0.02em; margin-top: 4px; }
+      .tile .s { font-size: 11px; color: #7ee2a8; }
+      .bars { display: flex; align-items: flex-end; gap: 5px; height: 64px; padding: 0 16px 16px; }
+      .bars span { flex: 1; border-radius: 3px 3px 0 0; background: #2b2a52; }
+      .bars span:nth-child(3n) { background: var(--accent); }
+      .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin: 16px 0 8px; }
+      .price { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 18px 0; }
+      .price .card { margin: 0; }
+      .amount { font-size: 32px; font-weight: 800; letter-spacing: -0.03em; }
+      .amount small { font-size: 13px; font-weight: 500; color: var(--muted); }
+      ul { padding-left: 20px; }
+      li { margin: 5px 0; }
+      .muted-note { color: var(--muted); font-size: 13px; }
+      @media (max-width: 720px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="top" style="justify-content: space-between">
+        <div style="display: flex; align-items: center; gap: 10px">
+          <span class="mark">O</span><span class="brand">Opsdeck</span>
+        </div>
+        <nav style="display: flex; gap: 18px; font-size: 14px">
+          <a href="#features">Funktionen</a>
+          <a href="#preis">Preis</a>
+          <a href="#faq">Fragen</a>
+          <a href="/">Demo</a>
+        </nav>
+      </div>
+
+      <section class="hero">
+        <span class="eyebrow">Dashboard-Quellcode für Dropshipping</span>
+        <h1>Alle Bestellungen, Margen und Lieferanten in einem Dashboard. Ohne monatliche Gebühr.</h1>
+        <p class="lead">
+          Opsdeck ist ein fertiges Betriebs-Dashboard, das dir gehört: React-Frontend, eigene API,
+          eigene Datenbank, läuft auf Cloudflare für ein paar Cent im Monat. Kein SaaS-Abo, keine
+          Daten bei einem Fremdanbieter, kein Limit bei den Bestellungen.
+        </p>
+        <div class="row">
+          <a class="btn" href="/">Live-Demo öffnen</a>
+          <a class="btn ghost" href="#preis">Preis ansehen</a>
+        </div>
+        <p class="muted-note">
+          Demo enthält einen Beispieldatensatz mit 899 Bestellungen. Du kannst die Datenbank dort
+          jederzeit leeren.
+        </p>
+
+        <div class="preview" aria-hidden="true">
+          <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+          <div class="grid">
+            <div class="tile"><div class="k">Umsatz</div><div class="v">17.032 €</div><div class="s">+33,5 %</div></div>
+            <div class="tile"><div class="k">Gewinn</div><div class="v">10.376 €</div><div class="s">+35,0 %</div></div>
+            <div class="tile"><div class="k">Bestellungen</div><div class="v">352</div><div class="s">+26,6 %</div></div>
+            <div class="tile"><div class="k">Warenkorb</div><div class="v">48 €</div><div class="s">+5,4 %</div></div>
+          </div>
+          <div class="bars">
+            <span style="height: 30%"></span><span style="height: 44%"></span><span style="height: 38%"></span>
+            <span style="height: 56%"></span><span style="height: 49%"></span><span style="height: 62%"></span>
+            <span style="height: 58%"></span><span style="height: 71%"></span><span style="height: 66%"></span>
+            <span style="height: 79%"></span><span style="height: 74%"></span><span style="height: 92%"></span>
+          </div>
+        </div>
+      </section>
+
+      <h2 id="features">Was drin ist</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Bestellungen und Pipeline</h3>
+          <p>Filter nach Kanal, Status, Land und Risiko. Statuswechsel landen sofort in der Datenbank.</p>
+        </div>
+        <div class="card">
+          <h3>Margen und Kosten</h3>
+          <p>Umsatz, Einkaufskosten, Gebühren pro Tag und Kanal, Forecast und Produkt-Ranking.</p>
+        </div>
+        <div class="card">
+          <h3>Produkte und Lieferanten</h3>
+          <p>Einkaufspreis, Lieferzeit, Bestand, Lieferanten-Scorecard, Warnungen bei niedrigem Bestand.</p>
+        </div>
+        <div class="card">
+          <h3>Tracking</h3>
+          <p>Sendungen mit Carrier, letztem Checkpoint, Ausnahmen und ETA-Übersicht.</p>
+        </div>
+        <div class="card">
+          <h3>Automatisierung</h3>
+          <p>Regeln anlegen, pausieren und löschen: Risiko halten, Lieferant nachziehen, Bestand melden.</p>
+        </div>
+        <div class="card">
+          <h3>Kunden und Finanzen</h3>
+          <p>Kundenliste mit Segmenten, Buchungsjournal mit Auszahlungen, Gebühren und Erstattungen.</p>
+        </div>
+      </div>
+
+      <h2>Technik, die du verstehst</h2>
+      <div class="card">
+        <table>
+          <tr><th>Teil</th><th>Umsetzung</th></tr>
+          <tr><td>Frontend</td><td>React 18, Vite, TypeScript, Tailwind</td></tr>
+          <tr><td>API</td><td>Cloudflare Worker, eine Datei, klar lesbar, mit Validierung</td></tr>
+          <tr><td>Datenbank</td><td>Cloudflare D1 (SQLite), Schema und Migrationen liegen bei</td></tr>
+          <tr><td>Betriebskosten</td><td>Free-Plan von Cloudflare reicht für den Anfang, danach wenige Euro im Monat</td></tr>
+          <tr><td>Deploy</td><td>Zwei Befehle, dokumentiert in der README</td></tr>
+        </table>
+      </div>
+
+      <h2>In zehn Minuten live</h2>
+      <p>1. Repository klonen und <code>npm install</code>. 2. D1-Datenbank anlegen und Schema einspielen.
+        3. Worker und Frontend deployen. Danach gehört dir die Installation, inklusive Domain.</p>
+
+      <h2 id="preis">Preis</h2>
+      <div class="price">
+        <div class="card">
+          <div class="amount">49 € <small>einmalig</small></div>
+          <p><strong>Solo</strong></p>
+          <ul>
+            <li>Ein Projekt oder ein Kunde</li>
+            <li>Vollständiger Quellcode, API und Datenbankschema</li>
+            <li>Dokumentation und Beispieldaten</li>
+            <li>Zwölf Monate Updates</li>
+          </ul>
+          <a class="btn" href="mailto:chowdoryrintu60@gmail.com?subject=Opsdeck%20Lizenz%20Solo&amp;body=Hallo%20Rintu%2C%20ich%20m%C3%B6chte%20die%20Solo-Lizenz%20kaufen.">Solo kaufen</a>
+        </div>
+        <div class="card">
+          <div class="amount">149 € <small>einmalig</small></div>
+          <p><strong>Studio</strong></p>
+          <ul>
+            <li>Unbegrenzt viele eigene und Kundenprojekte</li>
+            <li>Rebranding und Weitergabe an Kunden erlaubt</li>
+            <li>Zwölf Monate Updates</li>
+            <li>Antwort per E-Mail innerhalb von zwei Werktagen</li>
+          </ul>
+          <a class="btn" href="mailto:chowdoryrintu60@gmail.com?subject=Opsdeck%20Lizenz%20Studio&amp;body=Hallo%20Rintu%2C%20ich%20m%C3%B6chte%20die%20Studio-Lizenz%20kaufen.">Studio kaufen</a>
+        </div>
+      </div>
+      <!-- Hinweis für den Betreiber: sobald ein Konto bei Lemon Squeezy oder Gumroad steht,
+           die beiden mailto-Links oben durch die Checkout-URLs ersetzen. Beide Anbieter
+           treten als Merchant of Record auf und führen die Umsatzsteuer ab. -->
+      <p class="muted-note">
+        Einmalkauf, keine Abo-Falle. Rechnung inklusive Kleinunternehmer-Hinweis nach § 19 UStG.
+        Wer vorher testen will: die Demo oben läuft ohne Anmeldung.
+      </p>
+
+      <h2 id="faq">Häufige Fragen</h2>
+      <div class="card">
+        <h3>Sind die Shop-Anbindungen fertig?</h3>
+        <p>
+          Nein. Der Verbindungs-Katalog verwaltet deine Auswahl, die echte Synchronisierung mit
+          Shopify, Amazon oder AliExpress braucht deine eigenen API-Zugänge und Freigaben. Was
+          fertig ist: Datenbank, API, alle Ansichten, Bestellungen, Produkte, Regeln, Tracking,
+          Finanzen. Diese Ehrlichkeit steht auch in der README.
+        </p>
+
+        <h3>Was kostet der Betrieb?</h3>
+        <p>
+          Ein Cloudflare-Konto mit Free-Plan reicht für den Start (Pages, Workers, D1). Erst bei
+          viel Traffic oder vielen Schreibzugriffen brauchst du den bezahlten Plan.
+        </p>
+
+        <h3>Bekomme ich Updates?</h3>
+        <p>Ja, zwölf Monate für die gekaufte Versionslinie. Neue Anbindungen kommen als Update dazu.</p>
+
+        <h3>Darf ich es für Kunden einsetzen?</h3>
+        <p>Mit der Studio-Lizenz ohne Einschränkung, inklusive Rebranding. Solo gilt für ein Projekt.</p>
+
+        <h3>Kann ich vorher mit dir sprechen?</h3>
+        <p>
+          Ja, schreib an
+          <a href="mailto:chowdoryrintu60@gmail.com">chowdoryrintu60@gmail.com</a>. Bei Fragen zu
+          Setup, Anbindung oder Anpassung antworte ich meist am selben Tag.
+        </p>
+      </div>
+
+      <footer>
+        <a href="/">Demo</a>
+        <a href="/impressum.html">Impressum</a>
+        <a href="/datenschutz.html">Datenschutz</a>
+        <a href="/license.html">Lizenz</a>
+        <span>© 2026 Rintu Chowdory</span>
+      </footer>
+    </div>
+  </body>
+</html>

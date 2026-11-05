@@ -4,17 +4,21 @@ export default {
   theme: {
     extend: {
       colors: {
-        bg: "#0a0d10",
-        sidebar: "#0e1216",
-        card: "#12161a",
-        border: "#1e293b",
-        accent: "#22c55e",
-        accentdim: "#143328",
-        muted: "#64748b",
-        ink: "#e2e8f0",
+        bg: "#08090c",
+        sidebar: "#0b0d11",
+        card: "#11141a",
+        border: "#212633",
+        accent: "#7c6df2",
+        accentdim: "#1e1b45",
+        muted: "#7a8398",
+        ink: "#e8eaf0",
       },
       fontFamily: {
-        sans: ["Inter", "system-ui", "sans-serif"],
+        sans: ["Manrope", "Inter", "system-ui", "sans-serif"],
+      },
+      borderRadius: {
+        lg: "0.75rem",
+        xl: "1rem",
       },
     },
   },

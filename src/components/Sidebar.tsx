@@ -62,9 +62,11 @@ export function Sidebar({
   return (
     <aside className="flex w-60 shrink-0 flex-col border-r border-border bg-sidebar">
       <div className="flex items-center gap-2 px-5 pt-6 pb-4">
-        <Zap className="h-5 w-5 fill-accent text-accent" />
-        <span className="text-[15px] font-bold tracking-tight">
-          DropshipConnect
+        <span className="flex h-6 w-6 items-center justify-center rounded-md bg-accent">
+          <Zap className="h-3.5 w-3.5 fill-white text-white" />
+        </span>
+        <span className="text-[15px] font-extrabold tracking-tight">
+          Opsdeck
         </span>
       </div>
 
@@ -133,6 +135,12 @@ export function Sidebar({
           {getState().orders.length} orders ·{" "}
           {getState().products.length} products in D1
         </p>
+        <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 px-1 text-[10px] text-muted/60">
+          <a href="/landing.html" className="hover:text-ink">About</a>
+          <a href="/impressum.html" className="hover:text-ink">Impressum</a>
+          <a href="/datenschutz.html" className="hover:text-ink">Datenschutz</a>
+          <a href="/license.html" className="hover:text-ink">Lizenz</a>
+        </div>
       </div>
     </aside>
   );

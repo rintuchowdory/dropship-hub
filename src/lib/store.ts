@@ -28,6 +28,7 @@ const EMPTY: AppState = {
 let cache: AppState = EMPTY;
 let started = false;
 let lastError: string | null = null;
+let phase: "loading" | "ready" | "error" = "loading";
 const CHANGED = "dh:changed";
 
 const emit = () => window.dispatchEvent(new CustomEvent(CHANGED));
@@ -66,7 +67,12 @@ async function mutate(path: string, init: RequestInit) {
 
 async function load() {
   const data = (await call("/api/state")) as AppState | null;
-  if (data && Array.isArray(data.orders)) cache = data;
+  if (data && Array.isArray(data.orders)) {
+    cache = data;
+    phase = "ready";
+  } else {
+    phase = "error";
+  }
   emit();
 }
 
@@ -90,6 +96,19 @@ export function getState(): AppState {
 
 export function getApiError(): string | null {
   return lastError;
+}
+
+export type ApiPhase = "loading" | "ready" | "error";
+
+export function useApiStatus(): { phase: ApiPhase; error: string | null } {
+  const [snapshot, setSnapshot] = useState({ phase, error: lastError });
+  useEffect(() => {
+    const onChange = () => setSnapshot({ phase, error: lastError });
+    window.addEventListener(CHANGED, onChange);
+    onChange();
+    return () => window.removeEventListener(CHANGED, onChange);
+  }, []);
+  return snapshot;
 }
 
 export function reload(): Promise<void> {

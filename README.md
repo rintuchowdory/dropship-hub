@@ -1,37 +1,70 @@
-# Dropship Hub
+# Opsdeck
 
-A real, working dropshipping operations hub: **React frontend + Cloudflare Worker API + D1 (SQLite) database**. Not a mockup — orders, products, rules and connections are written to a real database and survive reloads, browsers and devices.
+A dropshipping operations dashboard you own: orders, suppliers, margins, tracking, customers, finance and automation in one place. React frontend, one-file Cloudflare Worker API, Cloudflare D1 database. No SaaS subscription, no per-order limits, your data stays in your account.
 
-- **App:** https://dropship-hub.pages.dev
-- **API:** https://dropship-hub-api.chowdoryrintu.workers.dev
+- **Live demo:** https://dropship-hub.pages.dev
+- **Sales page:** https://dropship-hub.pages.dev/landing.html
+- **License:** commercial, see [LICENSE](./LICENSE)
 
-## What is actually real
+## What you get
 
-| Area | Status |
+| Page | What it does |
 | --- | --- |
-| Persistence | **Real.** Cloudflare D1 behind a Worker; every page reads `/api/state` |
-| Order status changes | **Real.** `PATCH /api/orders/:id` updates the row in D1 |
-| Product create / delete | **Real.** `POST /api/products`, `DELETE /api/products/:id` |
-| Automation rules | **Real.** Rules are stored, toggled and deleted in D1 |
-| Connections | **Real persistence**, but the connect flow stores the intent only |
-| Channel sync | **Not implemented.** Live Shopify/Amazon/etc. sync needs OAuth apps and webhooks; the module boundaries for it are in `worker/index.ts` |
-| Payments / tracking | Stored records and analytics, no carrier or PSP API calls |
-
-The "Seed import" button writes the bundled 90-day starter dataset (~900 orders, 16 products, 509 customers, 64 shipments, 79 ledger entries) **into the database** as ordinary rows. Nothing in the UI is hardcoded.
+| Dashboard | Revenue, profit, AOV, pipeline, channel mix, top products, alerts, recent orders |
+| Analytics | Margins per channel, forecast, weekday heatmap, supplier scorecard |
+| Orders | Filter by channel, status, country, risk; status changes are persisted |
+| Products | Cost, price, stock, lead time; create and delete products |
+| Tracking | Shipments with carrier, checkpoint, exceptions, ETA |
+| Automation | Rules with trigger and action, active/paused, add and delete |
+| Connections | Catalogue of 39 services across 7 categories, selection is persisted |
+| Customers | Segments, spend, last order, repeat rate |
+| Finance | Ledger of payouts, fees, refunds with running balance |
 
 ## Architecture
 
 ```
-Browser (React 18 + Vite + Tailwind)
-   │  fetch  /api/*
+Browser (React 18 + Vite + TypeScript + Tailwind)
+   │  fetch /api/*
    ▼
-Cloudflare Worker  worker/index.ts      ← routing, validation, CORS
+Cloudflare Worker      worker/index.ts     routing, validation, CORS
    │  prepared statements
    ▼
-Cloudflare D1      dropship-hub         ← worker/schema.sql
+Cloudflare D1          worker/schema.sql   SQLite, real persistence
 ```
 
-`src/lib/store.ts` is the single data layer: it loads `/api/state`, and every mutation posts to the API and adopts the state the server returns, so the UI can never drift from what is persisted. All derived numbers (margins, forecasts, heatmaps, alerts) are computed in `src/lib/metrics.ts` from API data.
+`src/lib/store.ts` is the only data layer. It loads `/api/state`, every mutation posts to the API and adopts the state the server returns, so the UI cannot drift from the database. All metrics in `src/lib/metrics.ts` are derived from API data at render time.
+
+## Quickstart, about ten minutes
+
+```bash
+git clone https://github.com/rintuchowdory/dropship-hub.git
+cd dropship-hub
+npm install
+
+# 1. Create the database and paste the id into worker/wrangler.toml
+npx wrangler d1 create opsdeck
+
+# 2. Create the tables
+npm run db:init
+
+# 3. Local development: API on :8787, app on :5173
+npm run api:dev
+npm run dev
+```
+
+Deploy:
+
+```bash
+npm run deploy:api
+VITE_API_URL=https://<your-worker>.workers.dev npm run build
+npx wrangler pages deploy dist --project-name <your-pages-project> --branch main
+```
+
+Both commands need `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`.
+
+After the first deploy open the app and click **Seed import** in the sidebar to write the starter dataset (899 orders, 16 products, 509 customers, 64 shipments, 79 ledger entries) into **your** database. **Clear** empties it again.
+
+Worker config must live in `worker/wrangler.toml`. A `wrangler.toml` in the repo root makes `wrangler pages deploy` fail with a missing `pages_build_output_dir`.
 
 ## API
 
@@ -49,30 +82,19 @@ Cloudflare D1      dropship-hub         ← worker/schema.sql
 | DELETE | `/api/rules/:id` | Delete rule |
 | PUT | `/api/connections` | `{ id, connected }` |
 
-## Local development
+## Customizing
 
-```bash
-npm install
-npx wrangler d1 create dropship-hub        # once, then copy database_id into worker/wrangler.toml
-npm run db:init                            # create tables (remote)
-npm run api:dev                            # Worker on http://localhost:8787
-npm run dev                                # Vite on http://localhost:5173, proxies /api
-```
+- **Branding:** name and logo in `src/components/Sidebar.tsx`, colours and font in `tailwind.config.js`, font link in `index.html`.
+- **Add a page:** create the component in `src/pages`, add the key to `Page` in `src/lib/types.ts`, register it in `src/App.tsx` and in the sidebar groups.
+- **Change the data model:** edit `worker/schema.sql`, add the mapping in `worker/index.ts`, extend `src/lib/types.ts`.
+- **Legal pages:** `public/impressum.html`, `public/datenschutz.html`, `public/license.html`, shared style in `public/site.css`.
 
-## Deploy
+## What is real and what is not
 
-```bash
-npm run deploy:api                         # Worker + API
-VITE_API_URL=https://dropship-hub-api.chowdoryrintu.workers.dev npm run build
-npm run deploy:web                         # Cloudflare Pages project "dropship-hub"
-```
+Real: persistence, order status changes, product CRUD, rules, connection selection, all metrics, all pages, the API, the database.
 
-Requires `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`.
-
-## Pages
-
-Dashboard, Analytics, Orders, Products, Tracking, Automation, Connections, Customers, Finance — all fed by the API.
+Not included: live sync with Shopify, Amazon, AliExpress, Stripe, AfterShip and the other services in the catalogue. The catalogue stores your selection only. Real sync needs a provider app, credentials and a sync job per provider; the Worker is the place to add them. The README says so on the sales page too, so nobody buys an expectation you cannot deliver.
 
 ## License
 
-MIT © Rintu Chowdory
+Commercial one-time license, see [LICENSE](./LICENSE). Solo covers one project, Studio covers unlimited own and client projects. Reselling the source as a template is not allowed.
