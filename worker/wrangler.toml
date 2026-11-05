@@ -1,0 +1,9 @@
+name = "dropship-hub-api"
+main = "index.ts"
+compatibility_date = "2026-11-01"
+
+# Real database: Cloudflare D1 (SQLite). Schema lives in worker/schema.sql.
+[[d1_databases]]
+binding = "DB"
+database_name = "dropship-hub"
+database_id = "580a8722-a5cd-4ef3-a66a-bb3fbc10a341"
